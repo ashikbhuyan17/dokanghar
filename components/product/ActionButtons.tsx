@@ -1,11 +1,10 @@
 'use client';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Heart, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fetcher } from '@/lib/fetcher';
 import { useRouter, usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import MinOrderModal from './MinOrderModal';
@@ -13,16 +12,9 @@ import AddToCartModal from './AddToCartModal';
 import { useProductStore } from '@/stores/useProductStore';
 import { revalidateClient } from '@/action/revalidateClient';
 
-export default function ActionButtons({
-  isInWishlist,
-  productId,
-}: {
-  isInWishlist: any;
-  productId: any;
-}) {
+export default function ActionButtons({ productId }: { productId: any }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isWishlistLoading, setIsWishlistLoading] = useState(false);
   const [isAddToCartLoading, setIsAddToCartLoading] = useState(false);
   const [isBuyNowLoading, setIsBuyNowLoading] = useState(false);
   const [showMinOrderModal, setShowMinOrderModal] = useState(false);
@@ -167,54 +159,8 @@ export default function ActionButtons({
     }
   };
 
-  const handleWishlist = async () => {
-    setIsWishlistLoading(true);
-    try {
-      const user: any = await fetcher('/user-profile');
-      if (!user?.data?.id) {
-        router.push(`/signin?redirect=${encodeURIComponent(pathname || '/')}`);
-        return;
-      }
-
-      const endpoint = isInWishlist ? '/remove-wishlist' : '/add-to-wishlist';
-      const res: any = await fetcher(endpoint, {
-        method: 'POST',
-        body: JSON.stringify({
-          product_id: productId,
-          user_id: user?.data?.id,
-        }),
-      });
-
-      if (res?.status === true) {
-        router.refresh();
-      } else {
-        toast.error('Failed to update wishlist.');
-      }
-    } finally {
-      setIsWishlistLoading(false);
-    }
-  };
-
   return (
     <div className="flex flex-wrap gap-2 mt-4">
-      <Button
-        disabled={isWishlistLoading}
-        onClick={handleWishlist}
-        variant="outline"
-        size="lg"
-        className="p-0 w-12"
-      >
-        {isWishlistLoading ? (
-          <Loader2 className="animate-spin" />
-        ) : (
-          <Heart
-            size={22}
-            className={cn(isInWishlist ? 'text-red-600' : 'text-gray-500')}
-            fill={isInWishlist ? '#e7000b' : 'none'}
-          />
-        )}
-      </Button>
-
       <Button
         disabled={isAddToCartLoading}
         onClick={handleAddToCart}

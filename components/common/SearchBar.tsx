@@ -22,14 +22,14 @@ function SearchBar() {
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
         value={value}
         type="text"
-        placeholder="Search Product"
-        className="w-full bg-white py-2 pl-4 pr-10 text-sm text-gray-900 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-0"
+        placeholder="Search products…"
+        className="h-10 w-full rounded-full border-0 bg-white py-2 pl-4 pr-11 text-sm text-foreground shadow-sm ring-1 ring-border placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
       />
       <button
         type="button"
         onClick={handleSearch}
         aria-label="Search"
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-primary hover:text-gray-900"
+        className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-primary transition-colors hover:bg-primary/10 hover:text-[#e67200]"
       >
         <Search className="h-5 w-5" />
       </button>

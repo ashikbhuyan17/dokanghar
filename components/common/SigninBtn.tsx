@@ -54,43 +54,46 @@ function SigninBtn() {
     }
   };
 
+  const avatarBtn =
+    'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-border transition-all hover:bg-white hover:shadow-md hover:ring-primary/30 active:scale-[0.97]';
+
   if (loading) {
     return (
       <button
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary hover:bg-gray-100 transition-all"
+        className={`${avatarBtn} cursor-wait opacity-80`}
         disabled
         aria-label="Loading"
       >
-        <User className="h-5 w-5" />
+        <User className="h-[1.15rem] w-[1.15rem]" strokeWidth={2} />
       </button>
     );
   }
 
   return (
     <button
+      type="button"
       onClick={handlePush}
-      aria-label={user?.data?.name ? "Account menu" : "Sign in"}
-      className={`flex h-10 items-center gap-2 rounded-full "
-        }`}
+      aria-label={user?.data?.name ? 'Account menu' : 'Sign in'}
+      className="flex h-10 items-center gap-2.5 rounded-full outline-none transition-opacity hover:opacity-95 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
     >
       {user?.data?.name ? (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-primary hover:bg-gray-100 transition-all shadow-sm hover:shadow-md">
-          <span className="text-xl font-semibold">
+        <div className={avatarBtn}>
+          <span className="text-base font-bold">
             {user?.data?.name?.charAt(0).toUpperCase()}
           </span>
         </div>
       ) : (
-        <div className="flex h-10 w-10 shrink-0 items-center  rounded-full bg-white text-primary hover:bg-gray-100 transition-all shadow-sm hover:shadow-md  justify-center">
-          <User className="h-4 w-4 text-primary" />
+        <div className={avatarBtn}>
+          <User className="h-[1.15rem] w-[1.15rem]" strokeWidth={2} />
         </div>
       )}
 
       {user?.data?.name && (
-        <div className="flex flex-col justify-start items-start text-gray-100">
-          <p className="text-sm font-semibold max-w-[120px] truncate">
+        <div className="hidden min-w-0 flex-col items-start text-left text-foreground lg:flex">
+          <p className="max-w-[140px] truncate text-sm font-semibold leading-tight">
             {user.data.name}
           </p>
-          <p className="text-xs font-semibold  max-w-[120px]">
+          <p className="max-w-[140px] truncate text-xs font-medium text-muted-foreground">
             {user.data.email}
           </p>
         </div>

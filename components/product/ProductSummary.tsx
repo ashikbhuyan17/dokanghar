@@ -9,12 +9,10 @@ import { useProductStore } from "@/stores/useProductStore";
 
 export default function ProductSummary({
   productId,
-  isInWishlist,
   bulkQuantities,
   flashSalePercentage,
 }: {
   productId: any;
-  isInWishlist: any;
   bulkQuantities?: any;
   flashSalePercentage?: string;
 }) {
@@ -53,7 +51,7 @@ export default function ProductSummary({
         quantity={quantity}
         flashSalePercentage={flashSalePercentage}
       />
-      <ActionButtons isInWishlist={isInWishlist} productId={productId} />
+      <ActionButtons productId={productId} />
     </Card>
   );
 }

@@ -13,10 +13,8 @@ import { notFound } from 'next/navigation';
 async function ProductPage({ params }: { params: { slug: string } }) {
   const { slug } = await params;
 
-  // Parallel fetch: product, wishlist, shipping
-  const [rawProduct, wishlist, shippingArea] = await Promise.all([
+  const [rawProduct, shippingArea] = await Promise.all([
     fetcher(`/product-details/${slug}`),
-    fetcher('/wishlists'),
     fetcher('/shipping-area'),
   ]);
 
@@ -31,12 +29,6 @@ async function ProductPage({ params }: { params: { slug: string } }) {
       ? await fetcher(`/product-bulkquantities/${p?.id}`, {}, 60)
       : undefined;
 
-  const isInWishlist = (
-    wishlist as { data?: { product?: { id?: number } }[] }
-  )?.data?.find(
-    (item: { product?: { id?: number } }) => item?.product?.id === p?.id,
-  );
-
   const shippingOptions =
     product?.data?.shippingCharge ??
     (shippingArea as { data?: unknown[] })?.data;
@@ -48,7 +40,6 @@ async function ProductPage({ params }: { params: { slug: string } }) {
         <ProductPageClient
           bulkQuantities={bulkQuantities}
           product={product}
-          isInWishlist={isInWishlist}
           shippingOptions={shippingOptions}
         />
         <div className="w-full grid grid-cols-8 gap-4 rounded-sm mt-4">

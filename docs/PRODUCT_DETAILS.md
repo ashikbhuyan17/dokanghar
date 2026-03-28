@@ -48,7 +48,6 @@
 ```
 ProductPage (page.tsx)
   ├── fetcher('/product-details/${slug}')     → product data
-  ├── fetcher('/wishlists')                   → wishlist check
   ├── fetcher('/shipping-area')               → shipping options
   └── p?.order_by == 1 হলে fetcher('/product-bulkquantities/${id}')  → bulk tiers
 ```

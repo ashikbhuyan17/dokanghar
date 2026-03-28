@@ -1,13 +1,10 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { fetcher } from '@/lib/fetcher';
-import ProductCard from '@/components/common/ProductCard';
 import StatusCards from '@/components/account/StatusCards';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function Dashboard() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const wishlist: any = await fetcher('/wishlists');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dashboardOverview: any = await fetcher('/dashboard-overview');
 
@@ -17,7 +14,6 @@ export default async function Dashboard() {
 
   return (
     <div className="w-full rounded space-y-4 px-2">
-      {/* Status cards + Support in one div (bg, shadow); Support on right */}
       <StatusCards
         pending={pending}
         processing={processing}
@@ -47,32 +43,6 @@ export default async function Dashboard() {
           </div>
         }
       />
-
-      <div className="bg-white rounded-sm">
-        {/* Favorites */}
-        <div className="p-4">
-          <div className="flex justify-between items-center mb-3">
-            <p className="font-semibold text-gray-800">Your Favorites</p>
-            <Button variant="outline" className="h-7 text-xs px-3 rounded-lg">
-              View All
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {wishlist?.data?.map((item: any, i: number) => (
-              <ProductCard
-                title={item?.product?.name}
-                slug={item?.product?.slug}
-                image={item?.product?.image?.image}
-                newPrice={item?.product?.new_price}
-                oldPrice={item?.product?.old_price}
-                key={i}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

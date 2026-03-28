@@ -1,150 +1,130 @@
-import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
-import Image from "next/image";
-import { fetcher } from "@/lib/fetcher";
+import Link from 'next/link';
+import { Mail, Phone, MapPin, MapPinned } from 'lucide-react';
+import Image from 'next/image';
+import { fetcher } from '@/lib/fetcher';
+import FooterNewsletter from '@/components/common/FooterNewsletter';
 
 export default async function Footer() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const social: any = await fetcher("/social-media");
+  const social: any = await fetcher('/social-media');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const settings: any = await fetcher("/settings");
+  const settings: any = await fetcher('/settings');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pages: any = await fetcher("/pages");
+  const pages: any = await fetcher('/pages');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const contact: any = await fetcher("/contact");
+  const contact: any = await fetcher('/contact');
 
   return (
-    <footer className="bg-white border-t border-gray-200 rounded-sm mt-4">
-      {/* <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">
-            Explore Sky Brands... Think to the Sky.
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            <div className="bg-blue-50 rounded-lg p-6 flex items-center justify-center h-24">
-              <Image
-                alt=""
-                src="https://skybuybd.com/_next/static/media/logo.2d8160b9.svg"
-                width={1200}
-                height={1200}
-                className="w-40"
-              />
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-6 flex items-center justify-center h-24">
-              <Image
-                alt=""
-                src="https://skybuybd.com/_next/static/media/skyone.192d7933.png"
-                width={1200}
-                height={1200}
-                className="w-40"
-              />
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-6 flex items-center justify-center h-24">
-              <Image
-                alt=""
-                src="https://skybuybd.com/_next/static/media/sky-track.3d4e773f.png"
-                width={1200}
-                height={1200}
-                className="w-40"
-              />
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-6 flex items-center justify-center h-24">
-              <Image
-                alt=""
-                src="https://skybuybd.com/_next/static/media/skyexpress.3f90a79f.svg"
-                width={1200}
-                height={1200}
-                className="w-40"
-              />
-            </div>
-          </div>
+    <footer className="mt-6 overflow-hidden rounded-t-2xl border border-border bg-card shadow-sm">
+      <div className="bg-linear-to-r from-primary via-[#ff8f1a] to-primary px-4 py-4 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+          <p className="text-sm font-medium text-primary-foreground/95 sm:text-base">
+            Trusted shopping · Secure checkout · Fast delivery
+          </p>
+          <Link
+            href="/"
+            className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/90 underline decoration-white/40 underline-offset-4 transition hover:decoration-white"
+          >
+            Continue shopping
+          </Link>
         </div>
-      </div> */}
+      </div>
 
-      {/* Main Footer Content */}
-      <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {/* Company Info */}
+      <div className="bg-linear-to-b from-muted/80 to-muted/40 px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-10 xl:gap-12">
             <div className="flex flex-col">
-              <div className="mb-4">
-                <div className="inline-flex items-center gap-2">
-                  <div className="w-36 rounded-full flex items-center justify-center">
-                    <Link href="/" prefetch aria-label="Go to homepage">
-                      <Image
-                        alt="Logo"
-                        src={`${process.env.NEXT_PUBLIC_IMG_URL}/${settings?.data?.dark_logo}`}
-                        width={1200}
-                        height={1200}
-                        className="w-full"
-                      />
-                    </Link>
-                  </div>
-                </div>
+              <div className="mb-5">
+                <Link
+                  href="/"
+                  prefetch
+                  aria-label="Go to homepage"
+                  className="inline-block rounded-lg outline-none ring-offset-2 ring-offset-muted transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <Image
+                    alt="Logo"
+                    src={`${process.env.NEXT_PUBLIC_IMG_URL}/${settings?.data?.dark_logo}`}
+                    width={400}
+                    height={120}
+                    className="h-auto w-40 max-w-full object-contain sm:w-44"
+                  />
+                </Link>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
                 {settings?.data?.description}
               </p>
             </div>
 
-            {/* Contact */}
-            <div className="flex flex-col">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Contact</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <p className="text-gray-600 text-sm">
+            <div>
+              <h3 className="mb-5 text-base font-semibold tracking-tight text-foreground">
+                <span className="border-b-2 border-primary pb-1">Contact</span>
+              </h3>
+              <ul className="flex flex-col gap-3.5">
+                <li className="flex gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <MapPin className="h-5 w-5" aria-hidden />
+                  </span>
+                  <p className="pt-1 text-sm leading-relaxed text-muted-foreground">
                     {contact?.data?.address}
                   </p>
-                </div>
-                <Link
-                  href={`mailto:${contact?.data?.email}`}
-                  className="flex items-center gap-3 group"
-                >
-                  <Mail className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-gray-600 text-sm group-hover:text-primary transition-colors">
-                    {contact?.data?.email}
-                  </span>
-                </Link>
-                <Link
-                  href={`tel:${contact?.data?.phone}`}
-                  className="flex items-center gap-3 group"
-                >
-                  <Phone className="w-5 h-5 text-primary shrink-0" />
-                  <span className="text-gray-600 text-sm group-hover:text-primary transition-colors">
-                    {contact?.data?.phone}
-                  </span>
-                </Link>
-                <Link
-                  href={contact?.data?.maplink}
-                  target="_blank"
-                  className="flex items-center gap-3 group text-left"
-                >
-                  <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center shrink-0">
-                    <MapPin className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-gray-600 text-sm group-hover:text-primary transition-colors">
-                    Find us on map
-                  </span>
-                </Link>
-              </div>
+                </li>
+                <li>
+                  <Link
+                    href={`mailto:${contact?.data?.email}`}
+                    className="group flex items-center gap-3 rounded-lg py-0.5 transition-colors hover:text-primary"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+                      <Mail className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="text-sm text-muted-foreground group-hover:text-primary">
+                      {contact?.data?.email}
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={`tel:${contact?.data?.phone}`}
+                    className="group flex items-center gap-3 rounded-lg py-0.5 transition-colors hover:text-primary"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+                      <Phone className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="text-sm text-muted-foreground group-hover:text-primary">
+                      {contact?.data?.phone}
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={contact?.data?.maplink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-lg py-0.5 transition-colors hover:text-primary"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:scale-105">
+                      <MapPinned className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="text-sm font-medium text-muted-foreground group-hover:text-primary">
+                      Find us on map
+                    </span>
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            {/* Information */}
-            <div className="flex flex-col">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Information
+            <div>
+              <h3 className="mb-5 text-base font-semibold tracking-tight text-foreground">
+                <span className="border-b-2 border-primary pb-1">
+                  Information
+                </span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="flex flex-col gap-2.5">
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {pages?.data?.map((page: any) => (
                   <li key={page?.id}>
                     <Link
                       href={`/info/${page?.slug}`}
-                      className="text-gray-600 text-sm hover:text-primary transition-colors"
+                      className="inline-flex text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {page?.name}
                     </Link>
@@ -153,43 +133,49 @@ export default async function Footer() {
               </ul>
             </div>
 
-            {/* Social Links */}
-            <div className="flex flex-col">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Social Links
+            <div className="w-full min-w-0 lg:col-span-2">
+              <h3 className="mb-5 text-base font-semibold tracking-tight text-foreground">
+                <span className="border-b-2 border-primary pb-1">
+                  Follow us
+                </span>
               </h3>
-              <div className="flex gap-4 mb-6">
+              <div className="flex flex-wrap gap-2">
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {social?.data?.map((item: any) => (
                   <Link
                     key={item?.title}
                     target="_blank"
+                    rel="noopener noreferrer"
                     href={item?.link}
-                    aria-label={`Visit our ${item?.title ?? "social"} page`}
+                    aria-label={`Visit our ${item?.title ?? 'social'} page`}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-lg shadow-sm transition-all hover:border-primary/30 hover:bg-primary/5 hover:shadow-md"
                   >
                     <i
-                      className={`${item?.icon} fa-xl`}
-                      style={{
-                        color: item?.color,
-                      }}
-                    ></i>
+                      className={`${item?.icon} fa-lg`}
+                      style={{ color: item?.color }}
+                    />
                   </Link>
                 ))}
               </div>
+              <FooterNewsletter />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      <div className="bg-gray-100 border-t border-gray-200 py-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center text-sm text-gray-600">
+      <div className="border-t border-zinc-800/20 bg-zinc-900 px-4 py-5 sm:px-6">
+        <div className="mx-auto max-w-7xl text-center text-sm text-zinc-400">
           <p>
-            {settings?.data?.copyright} | Developed by{" "}
+            <span className="text-zinc-500">{settings?.data?.copyright}</span>
+            <span className="mx-2 text-zinc-600" aria-hidden>
+              |
+            </span>
+            <span>Developed by </span>
             <Link
               href="https://danpite.tech/"
               target="_blank"
-              className="text-primary font-semibold"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary transition hover:text-[#ff9f33]"
             >
               Danpite.Tech
             </Link>

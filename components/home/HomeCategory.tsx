@@ -1,49 +1,47 @@
-import { fetcher } from "@/lib/fetcher";
-import Image from "next/image";
-import Link from "next/link";
-async function HomeCategory({ slug, title }: { slug: string; title: string }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const categories: any = await fetcher(`/subcategories-by-category/${slug}`);
+import Image from 'next/image';
+import Link from 'next/link';
+import type { Category } from '@/lib/schemas/category';
 
-  // Handle error response (server down, invalid JSON, etc.)
-  if (categories?.status === 'error' || !categories?.data) {
-    return null; // Hide component if API fails
-  }
+const FALLBACK_IMAGE =
+  'https://skybuybd.com/_next/static/media/sneakers.2f787ceb.jpg';
 
-  return (
-    <div className="rounded-xl bg-white shadow-sm p-4">
-      <h3 className="font-bold text-primary py-4">{title}</h3>
-      <div className="grid grid-cols-2 gap-4">
-        {categories.data?.map(
-          //   eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (item: any, index: number) =>
-            index < 4 && (
-              <Link href={`/category/${slug}/subcategory/${item?.slug}`} key={item?.id}>
-                <div className="border-0 shadow-none">
-                  <div className="p-0">
-                    <div className="relative w-full h-28 rounded-sm overflow-hidden">
-                      <Image
-                        src={
-                          item?.image
-                            ? `${process.env.NEXT_PUBLIC_IMG_URL}/${item?.image}`
-                            : "https://skybuybd.com/_next/static/media/sneakers.2f787ceb.jpg"
-                        }
-                        alt={item?.subcategoryName}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <p className="text-start font-medium text-sm py-2">
-                      {item?.subcategoryName}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            )
-        )}
-      </div>
-    </div>
-  );
+export type HomeCategoryProps = {
+  category: Category;
+  imageBaseUrl: string;
+};
+
+function buildImageSrc(imageBaseUrl: string, imagePath: string): string {
+  const base = imageBaseUrl.replace(/\/$/, '');
+  const path = imagePath.replace(/^\//, '');
+  return `${base}/${path}`;
 }
 
-export default HomeCategory;
+export default function HomeCategory({
+  category,
+  imageBaseUrl,
+}: HomeCategoryProps) {
+  const { name, slug, image } = category;
+  const src = image ? buildImageSrc(imageBaseUrl, image) : FALLBACK_IMAGE;
+
+  return (
+    <Link
+      href={`/category/${encodeURIComponent(slug)}`}
+      className="group block outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-xl"
+    >
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="relative aspect-square w-full overflow-hidden rounded-xl border-3 border-[#ff7f00] bg-white p-1 shadow-sm transition-transform">
+          <Image
+            src={src}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 12.5vw"
+            className="object-contain p-1"
+          />
+        </div>
+        <p className="line-clamp-2 min-h-10 w-full text-center text-sm font-bold leading-tight text-foreground md:text-base">
+          {name}
+        </p>
+      </div>
+    </Link>
+  );
+}

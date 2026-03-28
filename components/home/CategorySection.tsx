@@ -1,25 +1,26 @@
 import { fetcher } from '@/lib/fetcher';
-import HomeCategory from './HomeCategory';
+import {
+  parseCategoriesResponse,
+  type CategoriesApiResponse,
+} from '@/lib/schemas/category';
+import CategoryCarousel from '@/components/home/CategoryCarousel';
 
 export default async function CategorySection() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const categories: any = await fetcher('/categories');
+  const raw = await fetcher<unknown>('/categories', {}, 180, false);
+  const parsed: CategoriesApiResponse | null = parseCategoriesResponse(raw);
+
+  if (!parsed?.data?.length) {
+    return null;
+  }
+
+  const imageBaseUrl = process.env.NEXT_PUBLIC_IMG_URL ?? '';
 
   return (
-    <section className="rounded-sm">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-6 gap-2">
-        {categories?.data?.map(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (category: any, index: number) =>
-            index < 4 && (
-              <HomeCategory
-                key={category?.id}
-                slug={category?.slug}
-                title={category?.name}
-              />
-            ),
-        )}
-      </div>
+    <section className="bg-white px-4 py-2 rounded-sm border-border md:px-3 md:py-3">
+      <CategoryCarousel
+        categories={parsed.data}
+        imageBaseUrl={imageBaseUrl}
+      />
     </section>
   );
 }
