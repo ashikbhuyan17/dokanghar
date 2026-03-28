@@ -29,6 +29,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'next.mamatazshop.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
   output: 'standalone',
