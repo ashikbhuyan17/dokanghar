@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { formatPriceInt, getDiscountPercent } from '@/lib/utils';
+import ProductCardActions from '@/components/common/ProductCardActions';
 
 export default function ProductCard({
   slug,
@@ -23,48 +24,57 @@ export default function ProductCard({
   const discount =
     discountPercent != null ? discountPercent : getDiscountPercent(newP, oldP);
 
-  return (
-    <Link
-      href={`/product/${slug}`}
-      prefetch
-      aria-label={`View product: ${title}`}
-    >
-      <Card className="max-w-72 p-0 rounded-xl overflow-hidden shadow-none hover:shadow-sm transition-all border border-gray-200">
-        <CardContent className="p-0">
-          {/* Image Section */}
-          <div className="relative aspect-square bg-gray-50 w-full">
-            {discount > 0 && (
-              <span className="absolute top-2 right-1 z-10 rounded bg-[#ff0050] px-1 py-0.5 text-xs font-semibold text-white">
-                {discount}%
-              </span>
-            )}
-            <Image
-              src={`${process.env.NEXT_PUBLIC_IMG_URL}/${image}`}
-              alt={title}
-              fill
-              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
-              className="object-cover"
-            />
-          </div>
+  const productHref = `/product/${slug}`;
+  const imgSrc = `${process.env.NEXT_PUBLIC_IMG_URL}/${image}`;
 
-          {/* Info Section */}
-          <div className="mt-1 p-3 space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-[#ff0050] font-bold text-lg">৳{formatPriceInt(newP)}</span>
+  return (
+    <Card className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200/90 bg-white p-0 shadow-sm transition-shadow duration-200 hover:shadow-md">
+      <CardContent className="flex flex-1 flex-col gap-0 p-0">
+        <Link
+          href={productHref}
+          prefetch
+          className="relative block aspect-square w-full overflow-hidden bg-neutral-50 outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-primary/60"
+          aria-label={`View product: ${title}`}
+        >
+          {discount > 0 && (
+            <span className="absolute right-2 top-2 z-10 rounded-md bg-rose-600 px-2 py-0.5 text-[11px] font-bold text-white shadow-sm">
+              −{discount}%
+            </span>
+          )}
+          <Image
+            src={imgSrc}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 180px"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </Link>
+
+        <div className="flex flex-1 flex-col gap-2 p-3 pt-2.5">
+          <Link
+            href={productHref}
+            prefetch
+            className="line-clamp-2 min-h-10 text-left text-sm font-semibold leading-snug tracking-tight text-neutral-900 transition-colors hover:text-primary"
+          >
+            {title}
+          </Link>
+
+          <div className="mt-auto space-y-1">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span className="text-base font-bold tabular-nums text-primary sm:text-lg">
+                ৳{formatPriceInt(newP)}
+              </span>
               {oldP > 0 && oldP > newP && (
-                <span className="text-[#80807B] font-bold text-sm line-through">
+                <span className="text-xs font-medium tabular-nums text-neutral-400 line-through sm:text-sm">
                   ৳{formatPriceInt(oldP)}
                 </span>
               )}
             </div>
-            <div>
-              <div className="text-[13px] text-[#80807B] font-medium leading-tight line-clamp-1">
-                {title}
-              </div>
-            </div>
+
+            <ProductCardActions slug={slug} />
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

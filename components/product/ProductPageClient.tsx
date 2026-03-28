@@ -28,7 +28,7 @@ function ProductPageClient({
   }, [product, shippingOptions, initFromProduct, reset]);
 
   return (
-    <div className="w-full grid grid-cols-8 gap-4 rounded-sm mt-4">
+    <div className="mt-4 grid w-full grid-cols-8 gap-4 rounded-sm">
       <div className="bg-white col-span-8 lg:col-span-5  rounded-sm">
         <ProductDetails
           bulkQuantities={bulkQuantities}

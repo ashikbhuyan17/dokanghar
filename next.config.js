@@ -1,5 +1,11 @@
 const nextConfig = {
   /* config options here */
+  transpilePackages: [
+    'embla-carousel',
+    'embla-carousel-react',
+    'embla-carousel-reactive-utils',
+    'embla-carousel-autoplay',
+  ],
   images: {
     unoptimized: true,
     remotePatterns: [
