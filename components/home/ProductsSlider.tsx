@@ -6,7 +6,8 @@ import {
 import ProductCard from "../common/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LayoutGrid } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ProductsSlider({
@@ -41,14 +42,21 @@ function ProductsSlider({
           </h2>
         </div>
         {categoryHref ? (
-          <Link
-            href={categoryHref}
-            prefetch
-            className="ml-auto inline-flex shrink-0 items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 sm:gap-1.5 sm:px-4 sm:py-2 sm:text-sm"
+          <Button
+            asChild
+            variant="outline"
+            className="ml-auto h-auto shrink-0 whitespace-nowrap rounded-lg border-gray-200 bg-white px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-50"
           >
-            VIEW ALL
-            <ArrowRight className="size-3.5 shrink-0 opacity-95 sm:size-4" strokeWidth={2.25} aria-hidden />
-          </Link>
+            <Link
+              href={categoryHref}
+              prefetch
+              className="flex items-center gap-2"
+            >
+              <LayoutGrid className="size-4 shrink-0 text-primary" aria-hidden />
+              <span className="text-sm font-medium">View all</span>
+              <ArrowRight className="size-4 shrink-0 text-gray-600" aria-hidden />
+            </Link>
+          </Button>
         ) : null}
       </div>
       <Carousel>

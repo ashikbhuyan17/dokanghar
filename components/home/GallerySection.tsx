@@ -105,7 +105,7 @@ function GallerySection({ galleryData }: GallerySectionProps) {
               onClick={() => setSelectedCategory(category.id)}
               variant={isActive ? 'default' : 'outline'}
               className={cn(
-                'whitespace-nowrap flex items-center gap-2 rounded px-3 py-2 h-auto',
+                'flex min-w-0 max-w-[11rem] items-center gap-2 rounded px-3 py-2 h-auto sm:max-w-[13rem]',
                 isActive
                   ? 'bg-teal-600 text-white hover:bg-teal-700'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200',
@@ -116,9 +116,11 @@ function GallerySection({ galleryData }: GallerySectionProps) {
                 alt={category.name}
                 width={16}
                 height={16}
-                className="w-4 h-4 object-contain"
+                className="h-4 w-4 shrink-0 object-contain"
               />
-              <span className="text-sm font-medium">{category.name}</span>
+              <span className="min-w-0 truncate text-left text-sm font-medium">
+                {category.name}
+              </span>
             </Button>
           );
         })}

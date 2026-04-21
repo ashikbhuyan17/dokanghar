@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense } from 'react';
+import Image from 'next/image';
 import CategorySection from '@/components/home/CategorySection';
 import CategorySectionSkeleton from '@/components/home/CategorySectionSkeleton';
 import FlashSaleSection from '@/components/home/FlashSaleSection';
@@ -34,16 +35,31 @@ export default async function Home() {
         <Suspense fallback={<CategorySectionSkeleton />}>
           <CategorySection />
         </Suspense>
+        <div className="overflow-hidden rounded-sm border border-border bg-white">
+          <Image
+            src="/banner.jpg"
+            alt=""
+            width={1920}
+            height={480}
+            className="h-auto w-full object-cover"
+            sizes="100vw"
+          />
+        </div>
         <div className="space-y-2 lg:space-y-3">
-          {(frontCategory as { data?: unknown[] })?.data?.map((cat: any) => (
-            <ProductsSlider
-              title={cat?.name}
-              image={cat?.image}
-              categorySlug={cat?.slug}
-              key={cat?.id}
-              products={cat?.products}
-            />
-          ))}
+          {(frontCategory as { data?: any[] })?.data
+            ?.filter(
+              (cat) =>
+                Array.isArray(cat?.products) && cat.products.length > 0,
+            )
+            ?.map((cat: any) => (
+              <ProductsSlider
+                title={cat?.name}
+                image={cat?.image}
+                categorySlug={cat?.slug}
+                key={cat?.id}
+                products={cat?.products}
+              />
+            ))}
         </div>
       </div>
       <Footer />

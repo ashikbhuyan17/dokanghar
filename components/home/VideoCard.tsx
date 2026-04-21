@@ -44,7 +44,7 @@ function VideoCard({
             </span>
           </div>
           <div className="mt-2">
-            <h2 className="font-semibold text-sm line-clamp-2">
+            <h2 className="truncate font-semibold text-sm" title={title || "Video Title"}>
               {title || "Video Title"}
             </h2>
             <p className="text-xs text-muted-foreground mt-1">{formatDate(date)}</p>

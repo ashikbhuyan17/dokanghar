@@ -84,14 +84,16 @@ export default function FooterNewsletter() {
   }
 
   return (
-    <div className="mt-8 w-full min-w-0 border-t border-border pt-6">
-      <h4 className="mb-1 text-sm font-semibold text-foreground">Newsletter</h4>
-      <p className="mb-3 text-xs leading-relaxed text-muted-foreground">
+    <div className="mt-4 w-full min-w-0 border-t border-border pt-3">
+      <h4 className="mb-0.5 text-sm font-semibold text-foreground">
+        Newsletter
+      </h4>
+      <p className="mb-2 text-xs leading-snug text-muted-foreground">
         Subscribe for offers and new arrivals.
       </p>
       <form
         onSubmit={handleSubmit}
-        className="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-stretch"
+        className="flex w-full min-w-0 flex-col gap-1.5 sm:flex-row sm:items-stretch"
       >
         <Input
           type="email"
@@ -99,7 +101,7 @@ export default function FooterNewsletter() {
           placeholder="Your email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="h-11 w-full min-w-0 flex-1 rounded-lg border-border bg-background text-sm shadow-sm"
+          className="h-9 w-full min-w-0 flex-1 rounded-lg border-border bg-background text-sm shadow-sm"
           disabled={loading}
           autoComplete="email"
           inputMode="email"
@@ -107,7 +109,7 @@ export default function FooterNewsletter() {
         />
         <Button
           type="submit"
-          className="h-11 shrink-0 gap-2 self-stretch sm:self-auto sm:min-w-30"
+          className="h-9 shrink-0 gap-1.5 self-stretch sm:self-auto sm:min-w-30"
           disabled={loading}
         >
           <SendHorizontal className="h-4 w-4" aria-hidden />

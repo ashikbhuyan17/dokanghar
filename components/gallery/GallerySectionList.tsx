@@ -40,7 +40,10 @@ export default function GallerySectionList({
     <div className="space-y-4">
       {categories.map((category) => (
         <section key={category.id} className="bg-white  rounded-md">
-          <h2 className="text-base font-semibold py-2 px-4 text-gray-800">
+          <h2
+            className="truncate px-4 py-2 text-base font-semibold text-gray-800"
+            title={category.name}
+          >
             {category.name.toUpperCase()}
           </h2>
           <div className="border-t border-gray-200 my-2" />

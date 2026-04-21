@@ -16,6 +16,9 @@ function buildImageSrc(imageBaseUrl: string, imagePath: string): string {
   return `${base}/${path}`;
 }
 
+/** Light tile behind circular thumb — matches “Popular Categories” reference */
+const CIRCLE_BG = '#F0F2F5';
+
 export default function HomeCategory({
   category,
   imageBaseUrl,
@@ -26,22 +29,30 @@ export default function HomeCategory({
   return (
     <Link
       href={`/category/${encodeURIComponent(slug)}`}
-      className="group block outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-xl"
+      className="group flex w-30 min-w-0 flex-col items-center outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-2 sm:w-32"
     >
-      <div className="flex flex-col items-center gap-2.5">
-        <div className="relative aspect-square w-full overflow-hidden rounded-xl border-3 border-[#ff7f00] bg-white p-1 shadow-sm transition-transform">
+      <div
+        className="relative h-22 w-22 shrink-0 rounded-full border-2 border-transparent transition-all duration-200 group-hover:scale-[1.04] group-hover:border-primary sm:h-26 sm:w-26"
+      >
+        <div
+          className="absolute inset-[2px] overflow-hidden rounded-full shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+          style={{ backgroundColor: CIRCLE_BG }}
+        >
           <Image
             src={src}
             alt={name}
             fill
-            sizes="(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 12.5vw"
-            className="object-contain p-1"
+            sizes="(max-width: 640px) 88px, 104px"
+            className="box-border object-contain p-3 sm:p-4"
           />
         </div>
-        <p className="line-clamp-2 min-h-10 w-full text-center text-sm font-bold leading-tight text-foreground md:text-base">
-          {name}
-        </p>
       </div>
+      <p
+        className="mt-3 line-clamp-1 w-full min-w-0 text-center text-sm font-medium leading-tight text-[#1A1A1A] sm:mt-3.5 sm:text-base"
+        title={name}
+      >
+        {name}
+      </p>
     </Link>
   );
 }

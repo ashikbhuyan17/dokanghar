@@ -40,12 +40,12 @@ const getImageUrl = (imagePath: string | null | undefined): string => {
 // Footer Component
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Footer = ({ settings, contact }: { settings: any; contact: any }) => (
-  <div className="px-3 py-6 border-t border-border mt-4">
-    <div className="grid grid-cols-3 gap-1">
+  <div className="px-3 py-3 border-t border-border">
+    <div className="grid grid-cols-3 gap-2">
       <Link
         href={settings?.data?.messenger}
         target="_blank"
-        className="flex flex-col items-center gap-2 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+        className="flex flex-col items-center gap-1 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ const Footer = ({ settings, contact }: { settings: any; contact: any }) => (
       <Link
         href={`https://wa.me/+88${contact?.data?.phone}`}
         target="_blank"
-        className="flex flex-col items-center gap-2 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+        className="flex flex-col items-center gap-1 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
       >
         <MessageSquare className="w-5 h-5" />
         <span className="text-xs font-medium">Chat</span>
@@ -72,7 +72,7 @@ const Footer = ({ settings, contact }: { settings: any; contact: any }) => (
 
       <Link
         href="/account/support"
-        className="flex flex-col items-center gap-2 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+        className="flex flex-col items-center gap-1 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
       >
         <Headphones className="w-5 h-5" />
         <span className="text-xs font-medium">Support</span>
@@ -200,12 +200,13 @@ export default function Sidebar2({
                       }}
                       className="flex-1 flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
                     >
-                      <div className="relative w-5 h-5 shrink-0">
+                      <div className="relative size-8 shrink-0 overflow-hidden rounded-lg border border-border/80 bg-muted/50 shadow-sm">
                         <Image
                           src={categoryImageUrl}
                           alt={category.name}
                           fill
-                          className="object-contain rounded"
+                          sizes="32px"
+                          className="object-contain p-0.5"
                         />
                       </div>
                       <span
